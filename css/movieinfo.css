@@ -199,6 +199,7 @@ h1 {
 }
 
 @media (max-width: 768px) {
+
     .cast-list {
         grid-template-columns: repeat(2, 1fr);
         gap: 12px;
@@ -209,9 +210,12 @@ h1 {
         height: 140px;
     }
     
-    .cast-section {
-        margin-top: 20px;
-        padding-top: 15px;
+    .cast-list {
+        margin-left: 0;
+    }
+
+    #details {
+        width: 80%;
     }
 }
 
