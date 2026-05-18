@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="../css/site.css">
     <link rel="stylesheet" href="../css/homepage.css">
     <link rel="stylesheet" href="../css/mobileH.css">
+    <style>
+        table{
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+    </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Rethink+Sans:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
@@ -16,10 +23,10 @@
         <header class="header-main">
         <div class="header-main-logo">
             <img src="../images/logo.svg" alt="logo" class="logo">
-            <button class="hamburger" onclick="toggleMobileMenu()" aria-label="Toggle navigation">☰</button>
+            <button class="hamburger" aria-label="Toggle navigation">☰</button>
             <nav class="header-main-nav">
                 <ul>
-                    <li><a href="index.html">HOME</a></li>
+                    <li><a href="../index.html">HOME</a></li>
                     <li><a href="movies.html">MOVIES</a></li>
                     <li><a href="aboutUs.html">ABOUT US</a></li>
                     <li><a href="contactUs.html">CONTACT</a></li>
@@ -58,7 +65,7 @@
                     <label for="subject">Subject</label>
                     <textarea id="subject" name="subject" placeholder="Write something.." required></textarea>
                     
-                    <input type="submit" value="Submit">
+                    <input style="margin-left: 40%;" type="submit" value="Submit">
                     
                     <div id="formMessage" class="message hidden"></div>
                 </form>

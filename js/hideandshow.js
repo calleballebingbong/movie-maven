@@ -1,3 +1,4 @@
+// search toggle
 function toggleSearchResults(show) {
     const results = document.getElementById("menuSearchResults");
     results.style.visibility = show ? "visible" : "hidden";

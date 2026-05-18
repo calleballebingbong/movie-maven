@@ -1,3 +1,4 @@
+// hero background
 async function setRandomHeroBackground() {
     try {
         const apiKey = TMDBapiKey;
@@ -39,3 +40,31 @@ async function setRandomHeroBackground() {
 }
 
 document.addEventListener("DOMContentLoaded", setRandomHeroBackground);
+
+//  function to get path prefix based on current page location
+function getPathPrefix() {
+    const path = window.location.pathname;
+    return path.includes('/html/') ? '../' : '';
+}
+
+// Redirect to a random popular movie
+async function goToRandomPopularMovie() {
+    try {
+        const apiKey = TMDBapiKey;
+        const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1`;
+        const response = await fetch(url);
+        if (!response.ok) throw new Error('Failed to fetch popular movies');
+        const data = await response.json();
+        const movies = data.results || [];
+        if (!movies.length) return;
+        const randomIndex = Math.floor(Math.random() * movies.length);
+        const movie = movies[randomIndex];
+        if (movie && movie.id) {
+            window.location.href = `${getPathPrefix()}html/movieinfo.html?movieId=${movie.id}`;
+        }
+    } catch (error) {
+        console.error('Failed to redirect to random movie:', error);
+    }
+}
+
+window.goToRandomPopularMovie = goToRandomPopularMovie;

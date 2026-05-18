@@ -1,3 +1,4 @@
+/* search title */
 #searchFor {
     font-family: 'Rethink Sans', sans-serif;
     font-weight: 400;
@@ -6,6 +7,7 @@
     text-align: center;
 }
 
+/* result grid */
 #searchresults {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -16,7 +18,65 @@
     margin: 0 auto;
 }
 
+/* show button */
 #showMoreButton {
     display: block;
     margin: 20px auto;
+    max-width: 250px;
+}
+
+/* genre filters */
+#genreFilters {
+    color: white;
+    text-align: center;
+    margin: 20px auto;
+    padding: 10px;
+    font-family: 'Rethink Sans', sans-serif;
+}
+
+.genre-filter-btn {
+    margin: 5px;
+    padding: 8px 15px;
+    border: 2px solid #fff;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+.genre-filter-btn.active {
+    background: #fff;
+    color: #000;
+}
+
+/* language filters */
+#languageFilters {
+    color: white;
+    text-align: center;
+    margin: 20px auto;
+    padding: 10px;
+    font-family: 'Rethink Sans', sans-serif;
+}
+
+/* language buttons */
+.language-filter-btn {
+    margin: 5px;
+    padding: 8px 15px;
+    border: 2px solid #888;
+    background: transparent;
+    color: #888;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+.language-filter-btn:hover {
+    border-color: #fff;
+    color: #fff;
+}
+
+.language-filter-btn.active {
+    background: #888;
+    color: #fff;
 }

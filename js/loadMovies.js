@@ -1,6 +1,14 @@
+// Helper function to get path prefix based on current page location
+function getPathPrefix() {
+    const path = window.location.pathname;
+    return path.includes('/html/') ? '../' : '';
+}
+
+// movie loader
 const TMDB_BASE = 'https://api.themoviedb.org/3';
 const IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
+// load movies
 async function loadMovies(endpoint, divId, noResultsMessage) {
     const resultDiv = document.getElementById(divId);
     if (!resultDiv) {
@@ -40,6 +48,7 @@ async function loadMovies(endpoint, divId, noResultsMessage) {
     }
 }
 
+// infinite scroll
 function setupInfiniteMovies(resultDiv) {
     if (!resultDiv || resultDiv.dataset.loopSetup === "true") return;
 
@@ -49,6 +58,9 @@ function setupInfiniteMovies(resultDiv) {
     resultDiv.dataset.paused = "false";
 
     const speed = 0.4;
+    let isDragging = false;
+    let startX = 0;
+    let startScrollLeft = 0;
 
     function step() {
         if (resultDiv.dataset.paused === "true") {
@@ -65,17 +77,61 @@ function setupInfiniteMovies(resultDiv) {
         requestAnimationFrame(step);
     }
 
-    resultDiv.addEventListener("mouseenter", () => {
+    // Drag functionality
+    resultDiv.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        startX = e.clientX;
+        startScrollLeft = resultDiv.scrollLeft;
         resultDiv.dataset.paused = "true";
+        resultDiv.style.cursor = "grabbing";
     });
-    resultDiv.addEventListener("mouseleave", () => {
+
+    resultDiv.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+        
+        const dragDistance = e.clientX - startX;
+        resultDiv.scrollLeft = startScrollLeft - dragDistance;
+    });
+
+    resultDiv.addEventListener("mouseup", () => {
+        isDragging = false;
+        resultDiv.style.cursor = "grab";
         resultDiv.dataset.paused = "false";
     });
 
+    resultDiv.addEventListener("mouseleave", () => {
+        if (isDragging) {
+            isDragging = false;
+            resultDiv.style.cursor = "grab";
+        }
+        resultDiv.dataset.paused = "false";
+    });
+
+    resultDiv.addEventListener("mouseenter", () => {
+        if (!isDragging) {
+            resultDiv.dataset.paused = "true";
+        }
+    });
+
+    // Scroll wheel
+    resultDiv.addEventListener("wheel", (e) => {
+        e.preventDefault();
+        resultDiv.scrollLeft += e.deltaY > 0 ? 50 : -50;
+        resultDiv.dataset.paused = "true";
+        
+        // Resume auto-scroll after scrolling
+        clearTimeout(resultDiv.scrollTimeout);
+        resultDiv.scrollTimeout = setTimeout(() => {
+            resultDiv.dataset.paused = "false";
+        }, 1500);
+    });
+
+    resultDiv.style.cursor = "grab";
     resultDiv.scrollLeft = 0;
     requestAnimationFrame(step);
 }
 
+// random trailers
 async function loadTwoRandomTrailers() {
     const container1 = document.getElementById("randomTrailer1");
     const container2 = document.getElementById("randomTrailer2");
@@ -111,6 +167,7 @@ async function loadTwoRandomTrailers() {
     }
 }
 
+// trailer fetch
 async function loadTrailerForContainer(movie, container) {
     try {
         const response = await fetch(`${TMDB_BASE}/movie/${movie.id}/videos?api_key=${TMDBapiKey}`);
@@ -126,13 +183,14 @@ async function loadTrailerForContainer(movie, container) {
                 <iframe src="https://www.youtube.com/embed/${trailer.key}" allowfullscreen></iframe>
             `;
         } else {
-            container.innerHTML = `<p>No trailer available for <a href="movieinfo.html?movieId=${movie.id}">${movie.title}</a></p>`;
+            container.innerHTML = `<p>No trailer available for <a href="${getPathPrefix()}html/movieinfo.html?movieId=${movie.id}">${movie.title}</a></p>`;
         }
     } catch (error) {
         container.innerHTML = `<p>Error loading trailer for ${movie.title}</p>`;
     }
 }
 
+// init homepage
 window.addEventListener("DOMContentLoaded", () => {
     const containers = {
         popularMovies: document.getElementById("popularMovies"),
@@ -150,6 +208,7 @@ window.addEventListener("DOMContentLoaded", () => {
     loadTwoRandomTrailers();
 });
 
+// init genre select
 document.addEventListener("DOMContentLoaded", () => {
     const genreSelect = document.getElementById("genreSelect");
     if (genreSelect) {

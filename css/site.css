@@ -1,3 +1,4 @@
+/* site wide styles */
 @media (max-width: 768px) { /* Tablet*/
     .header-main-nav ul li a {
         padding: 0 6px;
@@ -22,6 +23,14 @@
 body {
     background-color: #301212;
     margin: 0;
+}
+
+:target,
+h1,
+h2,
+.aboutHead,
+.movie-category {
+    scroll-margin-top: 76px;
 }
 
 a {
@@ -64,6 +73,7 @@ hr {
 
 .header-main-logo{
     width: fit-content;
+    margin-left: 5px;
     height: 100%;
     background-color: #640D14;
     display: flex;
@@ -72,8 +82,28 @@ hr {
 }
 
 .header-main-logo img {
-    height: 70px;
+    height: 40px;
     align-self: center;
+}
+
+
+
+/* Hamburger button*/
+.hamburger {
+    display: none; /* default hidden */
+    font-size: 24px;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    margin-left: 8px;
+}
+
+@media (max-width: 767px) {
+    .hamburger { display: inline-flex; }
+    .header-main-nav { display: none; }
+    .header-main-nav.mobile-open { display: block; position: absolute; top: 60px; left: 0; right: 0; background: #640D14; z-index: 2000; }
+    .header-main-nav ul { flex-direction: column; }
 }
 
 .header-main-nav{
@@ -116,25 +146,50 @@ hr {
 .header-main-sm{
     width: 120px;
     height: 100%;
-    background-color: blueviolet;
     display: flex;
     align-items: center;
+    gap: 8px;
+    padding-right: 8px;
+    box-sizing: border-box;
+}
+
+/* Small colored icon squares on the right side of the header (placeholders) */
+.header-main-sm-ig,
+.header-main-sm-yt {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
 .header-main-sm-ig {
-    width: 50%;
-    height: 100%;
-    background-color: pink;
+    background: #ffffff;
+}
+.header-main-sm-ig::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 20px;
+    background-image: url("../images/insta.svg");
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
 }
 
-.header-main-sm-ig {
-    width: 50%;
-    height: 100%;
-    background-color: rgb(60, 128, 0);
+/* sm buttons*/
+.header-main-sm-yt {
+    background: rgb(255, 255, 255); /* purple */
+}
+.header-main-sm-yt::before {
+    content: '';
+    display: block;
+    width: 18px;
+    height: 18px;
+    background-image: url(../images/globe.svg);
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
 }
 
 .search-input {
@@ -174,27 +229,68 @@ hr {
 }
 
 .menu-search-results {
-    position: fixed !important;  /* Fixed to viewport */
-    top: 50px;  /* Under mobile header */
+    position: fixed !important;
+    top: 50px;
     left: 10px;
     right: 10px;
     width: auto;
-    max-height: 50vh;  /* Half screen */
-    max-width: 400px;
-    margin: 0 auto;  /* Center */
-    padding: 15px;
-    border: 2px solid #640D14;
+    max-height: 50vh;
+    max-width: 360px;
+    margin: 0 auto;
+    padding: 12px;
+    border: 2px solid #D4AF37;
     border-radius: 10px;
-    background: white;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    background: #ffffff;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
     overflow-y: auto;
     overflow-x: hidden;
-    z-index: 3000 !important;  /* Above everything */
+    z-index: 3000 !important;
     visibility: hidden;
-    display: none;  /* JS controls */
-}
+    display: none;
 
-/* Ensure header doesn't clip */
+    .menu-search-results,
+    .menu-search-results * {
+        color: #000 !important;
+    }
+}
+.menu-search-results,
+.menu-search-results p,
+.menu-search-results a,
+.menu-search-results .menu-result-item,
+.menu-search-results .Menu-movie-title {
+    color: #000 !important;
+}
+    .menu-search-results {
+        position: absolute;
+        top: 60px;
+        right: 10px;
+        width: auto;
+        max-width: 360px;
+        max-height: 50vh;
+        margin: 0;
+        padding: 12px;
+        border: 2px solid #D4AF37;
+        border-radius: 10px;
+        background: #ffffff;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+        overflow-y: auto;
+        overflow-x: hidden;
+        z-index: 3000;
+        visibility: hidden;
+        display: none;
+    }
+
+    @media (max-width: 767px) {
+        .menu-search-results {
+            position: fixed !important;
+            top: 50px;
+            left: 10px;
+            right: 10px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+    }
+
 .header-main {
     overflow: visible !important;
 }
@@ -306,8 +402,13 @@ hr {
     font-family: 'Rethink Sans', sans-serif;
     text-decoration: none;
     font-weight: 500;
-    color: #000000;
+    color: #ffffff;
     text-align: left;
+}
+
+.menu-search-results .menu-result-item:hover {
+    background: rgba(212,175,55,0.06);
+    border-radius: 6px;
 }
 
 
@@ -363,9 +464,11 @@ hr {
 
 
 .get-started-btn {
+    height: 75px;
+    width: 50%;
     margin-top: 20px;
     padding: 10px 20px;
-    font-size: 1em;
+    font-size: 1.5em;
     border-radius: 10px;
     border: #ffffff solid 2px;
     background-color: #640D14;
@@ -389,17 +492,17 @@ hr {
 
 .contactUs {
     width: 100%;
-    padding: 40px 20px 60px;
+    padding: 24px 16px 36px;
     background-color: #1f1215;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 12px;
     font-family: 'Rethink Sans', sans-serif;
 }
 
 .contactUs h1 {
-    font-size: 2.5rem;
+    font-size: 1.25rem;
     margin: 0;
     color: #ffffff;
     letter-spacing: 0.03em;
@@ -408,35 +511,42 @@ hr {
 
 .contactUs .container {
     width: 100%;
-    max-width: 650px;
+    max-width: 620px;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 18px;
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
-    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+    padding: 18px;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .contactUs form {
-    display: grid;
+    display: block;
     gap: 18px;
+    width: 100%;
 }
 
 .contactUs label {
     color: #f7f7f7;
     font-weight: 500;
+    display: block;
 }
 
 .contactUs input[type="email"],
 .contactUs select,
 .contactUs textarea {
-    width: 90%;
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
     background: rgb(255, 255, 255);
     border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 14px;
+    border-radius: 10px;
     color: #303030;
-    padding: 14px 16px;
+    padding: 10px 12px;
     font-family: 'Rethink Sans', sans-serif;
-    font-size: 1rem;
+    font-size: 0.95rem;
 }
 
 .contactUs input[type="email"]:focus,
@@ -447,7 +557,7 @@ hr {
 }
 
 .contactUs textarea {
-    min-height: 140px;
+    min-height: 100px;
     resize: vertical;
 }
 
@@ -455,12 +565,13 @@ hr {
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
-    padding: 14px 28px;
-    border-radius: 14px;
+    margin-top: 10px;
+    padding: 10px 20px;
+    border-radius: 10px;
     border: none;
     background-color: #640d14;
     color: #ffffff;
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 600;
     cursor: pointer;
 }

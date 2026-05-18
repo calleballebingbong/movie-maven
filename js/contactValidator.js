@@ -1,3 +1,4 @@
+// validate contact
 document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.getElementById('contactForm');
     if (!contactForm) {

@@ -1,5 +1,5 @@
+// mobile menu
 (function () {
-    // Mobile menu toggle with accessibility + outside click + Esc key handling
     const HAMBURGER_SELECTOR = '.hamburger';
     const NAV_SELECTOR = '.header-main-nav';
 
@@ -17,7 +17,6 @@
         hamburger.setAttribute('aria-expanded', 'true');
         // prevent background scroll on mobile when menu open
         document.body.style.overflow = 'hidden';
-        // move focus into the nav for keyboard users (first link)
         const firstLink = nav.querySelector('a');
         if (firstLink) firstLink.focus();
     }

@@ -1,3 +1,4 @@
+/* homepage styles */
 body{
     overflow-x: hidden;
 }
@@ -21,13 +22,14 @@ body{
     font-family: 'Rethink Sans', sans-serif;
     text-align: center;
     position: absolute;
-    font-size: 150%;
+    font-size: 1rem;
     margin-top: -10vh;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    z-index: 2;
 }
 
 .hero-carousel {
@@ -48,40 +50,25 @@ body{
     transition: opacity 1s ease-in-out;
 }
 
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 0;
+}
+
 .hero-slide #txtSearch {
-    width: calc(100% - 40px);
-    max-width: 480px;
-    padding: 12px 12px;
+    width: 500px;
+    padding: 15px 15px;
     font-size: large;
-    box-sizing: border-box;
 }
 
 #slide1:checked ~ .hero-slide:nth-of-type(1),
 #slide2:checked ~ .hero-slide:nth-of-type(2),
 #slide3:checked ~ .hero-slide:nth-of-type(3) {
     opacity: 1;
-}
-
-.hero-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-}
-
-.hero-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    color: white;
-    z-index: 2;
-    font-family: 'Rethink Sans', sans-serif;
-    max-width: 600px;
 }
 
 .hero-text h1 {
@@ -141,8 +128,30 @@ body{
     text-align: center;
     align-items: center;
     flex-direction: column;
-    font-size: larger;
+    font-size: 1rem;
     gap: 10px;
+}
+
+#aboutUs {
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0));
+    padding: 28px 20px;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+}
+
+.infoText {
+    background: rgba(0,0,0,0.15);
+    margin-top: -10px;
+    padding: 18px;
+    border-radius: 10px;
+    border-left: 6px solid #D4AF37;
+    font-size: 1.125rem;
+    line-height: 1.5;
+}
+
+.infoImg {
+    max-width: 480px;
+    border-radius: 12px;
 }
 
 #infoPage .search-container {
@@ -172,30 +181,33 @@ body{
 /* Image + Text container */
 #aboutUs > div {
     display: flex;
-    gap: 16px;               /* Reduced spacing between image/text */
-    align-items: flex-start; /* Top alignment */
+    gap: 16px;
+    align-items: flex-start;
     width: 100%;
 }
 
 .infoImg {
     flex: 0 0 auto;
     width: 100%;
+    height: 350px;
     max-width: 500px;
-    height: auto;
     aspect-ratio: 16/9;
     object-fit: cover;
     border-radius: 12px;
     box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-    margin: 0;               /* No extra margins */
+    margin: 0;
 }
 
 .infoText {
-    flex: 1;                 /* Takes remaining space */
-    padding: 0;              /* ← NO PADDING = NO GAP */
-    margin: 0;               /* No margins */
-    font-size: 2rem;
+    flex: 1;
+    padding: 0;
+    margin: 0;
+        font-size: 2rem;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        box-sizing: border-box;
     line-height:1.4;
-    margin-top: 5%;
+    margin-top: 0;
     color: #fff;
 }
 
@@ -212,9 +224,20 @@ body{
         max-width: 400px;
         height: 300px;
     }
+
+    .infoText {
+        font-size: 1.05rem;
+        margin-top: 0;
+        padding: 0 8px;
+    }
 }
 
-/* Auto-scrolling movie sections */
+@media (max-width: 1024px) {
+    .infoText {
+        font-size: 1.25rem;
+    }
+}
+
 #topRatedMovies,
 #upcomingMovies,
 #popularMovies,
@@ -223,32 +246,34 @@ body{
     overflow: hidden;
     gap: 20px;
     padding: 20px 0;
-    scrollbar-width: none;          /* Hide scrollbar Firefox */
-    -ms-overflow-style: none;       /* Hide scrollbar IE/Edge */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    cursor: grab;
+    user-select: none;
 }
 
 #topRatedMovies::-webkit-scrollbar,
 #upcomingMovies::-webkit-scrollbar,
 #popularMovies::-webkit-scrollbar,
 #nowShowing::-webkit-scrollbar {
-    display: none;                  /* Hide scrollbar Chrome/Safari */
+    display: none;
 }
 
-#topRatedMovies:hover,
-#upcomingMovies:hover,
-#popularMovies:hover,
-#nowShowing:hover {
-    cursor: pointer;
+#topRatedMovies:active,
+#upcomingMovies:active,
+#popularMovies:active,
+#nowShowing:active {
+    cursor: grabbing;
 }
 
 /* Movie items */
 .movie-item {
-    flex: 0 0 250px;              /* Fixed width cards */
-    scroll-snap-align: start;     /* Snap to each movie */
+    flex: 0 0 250px;
+    scroll-snap-align: start;
     transition: transform 0.3s ease;
 }
 
 .movie-item:hover {
-    transform: scale(1.05);       /* Hover lift */
+    transform: scale(1.05);
     z-index: 10;
 }
