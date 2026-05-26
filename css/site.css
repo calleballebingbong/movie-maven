@@ -247,12 +247,13 @@ hr {
     z-index: 3000 !important;
     visibility: hidden;
     display: none;
-
-    .menu-search-results,
-    .menu-search-results * {
-        color: #000 !important;
-    }
 }
+
+.menu-search-results,
+.menu-search-results * {
+    color: #000 !important;
+}
+
 .menu-search-results,
 .menu-search-results p,
 .menu-search-results a,
@@ -260,7 +261,7 @@ hr {
 .menu-search-results .Menu-movie-title {
     color: #000 !important;
 }
-    .menu-search-results {
+.menu-search-results {
         position: absolute;
         top: 60px;
         right: 10px;
